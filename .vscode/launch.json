@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Codidact.Authentication.Web",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Web/bin/Debug/netcoreapp3.1/Codidact.Authentication.Web.dll",
+            "cwd": "${workspaceFolder}/src/Web",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views",
+            },
+            "logging": {
+                "moduleLoad": false,
+            }
+        },
+    ]
+}
