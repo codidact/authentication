@@ -5,7 +5,11 @@
         <AssemblyName>Codidact.Authentication.Application</AssemblyName>
     </PropertyGroup>
 
-  <ItemGroup>
-      <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.0" />
+    </ItemGroup>
 </Project>

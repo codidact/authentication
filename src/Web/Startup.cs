@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
+
+using Codidact.Authentication.Application.Extensions;
+using Codidact.Authentication.Infrastructure.Extensions;
 
 namespace Codidact.Authentication.Web
 {
@@ -20,7 +22,8 @@ namespace Codidact.Authentication.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddInfrastructure();
+            services.AddApplication();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
