@@ -13,11 +13,8 @@ namespace Codidact.Authentication.Infrastructure.Extensions
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("authentication"));
 
-            services.AddDefaultIdentity<ApplicationUser>()
+            services.AddIdentityCore<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            services.AddIdentityServer()
-                .AddAspNetIdentity<ApplicationUser>();
 
             return services;
         }

@@ -1,0 +1,12 @@
+@page
+@model LoginModel
+
+<form asp-page="/account/login" method="post">
+    <label>Email:</label>
+    <input asp-for="Email" />
+
+    <label>Password:</label>
+    <input asp-for="Password" />
+
+    <button>Login</button>
+</form>

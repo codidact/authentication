@@ -39,8 +39,6 @@ namespace Codidact.Authentication.Web
                 throw new NotImplementedException();
             }
 
-            app.UseStaticFiles();
-
             app.UseAuthentication();
 
             app.UseRouting();
