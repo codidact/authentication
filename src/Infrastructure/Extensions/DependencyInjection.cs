@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 
 using Codidact.Authentication.Infrastructure.Persistance;
-using Codidact.Authentication.Application.Persistance;
+using Codidact.Authentication.Infrastructure.Identity;
 
 namespace Codidact.Authentication.Infrastructure.Extensions
 {
@@ -13,8 +13,11 @@ namespace Codidact.Authentication.Infrastructure.Extensions
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("authentication"));
 
-            services.AddScoped<IApplicationDbContext>(provider =>
-                provider.GetService<ApplicationDbContext>());
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer()
+                .AddAspNetIdentity<ApplicationUser>();
 
             return services;
         }

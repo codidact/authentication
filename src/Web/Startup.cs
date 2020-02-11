@@ -22,6 +22,8 @@ namespace Codidact.Authentication.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
+
             services.AddInfrastructure();
             services.AddApplication();
         }
@@ -38,6 +40,15 @@ namespace Codidact.Authentication.Web
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
         }
     }
 }

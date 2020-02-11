@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>Codidact.Authentication.Infrastructure</RootNamespace>
         <AssemblyName>Codidact.Authentication.Infrastructure</AssemblyName>
     </PropertyGroup>
@@ -13,5 +13,9 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.0" />
+        <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.1.0" />
+
+        <!-- Todo. Replace with custom ui. -->
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
     </ItemGroup>
 </Project>
