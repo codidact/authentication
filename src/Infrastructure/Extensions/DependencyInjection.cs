@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 using Codidact.Authentication.Infrastructure.Persistance;
 using Codidact.Authentication.Infrastructure.Identity;
@@ -23,7 +24,10 @@ namespace Codidact.Authentication.Infrastructure.Extensions
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddSignInManager();
+
+            services.AddAuthentication();
 
             services.AddIdentityServer();
 
