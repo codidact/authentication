@@ -13,7 +13,8 @@ namespace Codidact.Authentication.Infrastructure.Extensions
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("authentication"));
 
-            services.AddIdentity<ApplicationUser>(options =>
+            // Todo. AddIdentity?
+            services.AddIdentityCore<ApplicationUser>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 8;
