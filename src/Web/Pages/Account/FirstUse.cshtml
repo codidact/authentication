@@ -1,0 +1,12 @@
+@page
+@model FirstUseModel
+
+<form asp-page="/account/firstuse" method="post">
+    <label>Email:</label>
+    <input asp-for="Email" />
+
+    <label>Password:</label>
+    <input asp-for="Password" />
+
+    <button>Register Administrator</button>
+</form>

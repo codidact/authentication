@@ -26,7 +26,8 @@ namespace Codidact.Authentication.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
 
             services.AddInfrastructure();
             services.AddApplication();
@@ -34,8 +35,6 @@ namespace Codidact.Authentication.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            CreateAdminAccount(app).Wait();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,35 +53,6 @@ namespace Codidact.Authentication.Web
             {
                 endpoints.MapRazorPages();
             });
-
-            app.Use(async (context, next) =>
-            {
-                await next();
-            });
-        }
-
-        private async Task CreateAdminAccount(IApplicationBuilder builder)
-        {
-            using var scope = builder.ApplicationServices.CreateScope();
-
-            var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
-            var logger = scope.ServiceProvider.GetService<ILogger<Startup>>();
-
-            if (await userManager.FindByNameAsync("admin") == null)
-            {
-                var result = await userManager.CreateAsync(new ApplicationUser
-                {
-                    Email = "admin@codidact",
-                    UserName = "admin@codidact",
-                }, "password");
-
-                if (!result.Succeeded)
-                {
-                    throw new Exception("Could not create an administrator account.");
-                }
-
-                logger.LogInformation("No 'admin@codidact' user found, created with password 'password'.");
-            }
         }
     }
 }

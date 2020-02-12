@@ -14,6 +14,7 @@ using Codidact.Authentication.Infrastructure.Identity;
 
 namespace Codidact.Authentication.Web.Models
 {
+    [BindProperties]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
