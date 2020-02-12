@@ -50,9 +50,7 @@ namespace Codidact.Authentication.Web.Models
                     else
                     {
                         _logger.LogInformation($"Ignored login attempt with malicious return URL '{ReturnUrl}'.");
-
-                        // Todo. Show a nicer error message.
-                        return StatusCode(400);
+                        return BadRequest();
                     }
                 }
                 else
