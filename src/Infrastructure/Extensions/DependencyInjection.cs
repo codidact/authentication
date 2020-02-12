@@ -13,7 +13,7 @@ namespace Codidact.Authentication.Infrastructure.Extensions
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("authentication"));
 
-            services.AddIdentityCore<ApplicationUser>(options =>
+            services.AddIdentity<ApplicationUser>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 8;
@@ -23,6 +23,8 @@ namespace Codidact.Authentication.Infrastructure.Extensions
                     options.Password.RequireUppercase = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer();
 
             return services;
         }

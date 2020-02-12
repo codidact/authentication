@@ -54,6 +54,11 @@ namespace Codidact.Authentication.Web
             {
                 endpoints.MapRazorPages();
             });
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+            });
         }
 
         private async Task CreateAdminAccount(IApplicationBuilder builder)
