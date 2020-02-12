@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -10,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using IdentityServer4.Events;
 using IdentityServer4.Services;
 
-using Codidact.Authentication.Infrastructure.Identity;
+using Codidact.Authentication.Domain.Entities;
 
 namespace Codidact.Authentication.Web.Models
 {
@@ -39,13 +38,10 @@ namespace Codidact.Authentication.Web.Models
         [Required, DataType(DataType.Password)]
         public string Password { get; set; }
 
-        // Todo. Hook this property up with the page.
         public bool RememberLogin { get; set; } = false;
 
-        // Todo. Hook this property up with the page.
         public string ReturnUrl { get; set; } = "/index";
 
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
@@ -62,12 +58,11 @@ namespace Codidact.Authentication.Web.Models
                     }
                     else
                     {
-                        throw new NotImplementedException();
+                        return BadRequest();
                     }
                 }
                 else
                 {
-                    // Todo. Lookup a localized string.
                     ModelState.AddModelError(string.Empty, "Invalid credentials.");
                 }
             }

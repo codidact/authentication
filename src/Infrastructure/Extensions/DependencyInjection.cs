@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
 using Codidact.Authentication.Infrastructure.Persistance;
-using Codidact.Authentication.Infrastructure.Identity;
+using Codidact.Authentication.Domain.Entities;
 
 namespace Codidact.Authentication.Infrastructure.Extensions
 {

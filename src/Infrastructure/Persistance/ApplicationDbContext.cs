@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-using Codidact.Authentication.Infrastructure.Identity;
+using Codidact.Authentication.Domain.Entities;
 
 namespace Codidact.Authentication.Infrastructure.Persistance
 {

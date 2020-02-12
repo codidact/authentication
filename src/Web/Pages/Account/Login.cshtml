@@ -2,11 +2,16 @@
 @model LoginModel
 
 <form asp-page="/account/login" method="post">
-    <label>Email:</label>
-    <input asp-for="Email" />
+    <label asp-for="Email">Email:</label>
+    <input asp-for="Email" /><br>
 
-    <label>Password:</label>
-    <input asp-for="Password" />
+    <label asp-for="Password">Password:</label>
+    <input asp-for="Password" /><br>
+
+    <label>Remember Login</label>
+    <input asp-for="RememberLogin" /><br>
+
+    <input type="hidden" asp-for="ReturnUrl" />
 
     <button>Login</button>
 </form>

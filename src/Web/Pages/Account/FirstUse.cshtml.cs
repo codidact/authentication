@@ -1,23 +1,23 @@
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 
-using Codidact.Authentication.Infrastructure.Identity;
+using Codidact.Authentication.Domain.Entities;
+using Codidact.Authentication.Application.Services;
 
 namespace Codidact.Authentication.Web.Models
 {
     [BindProperties]
     public class FirstUseModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly InitializationService _init;
 
-        public FirstUseModel(UserManager<ApplicationUser> userManager)
+        public FirstUseModel(InitializationService init)
         {
-            _userManager = userManager;
+            _init = init;
         }
 
         [DataType(DataType.EmailAddress), Required]
@@ -28,7 +28,7 @@ namespace Codidact.Authentication.Web.Models
 
         public IActionResult OnGet()
         {
-            if (DidFirstUseAlreadyRun())
+            if (_init.DoesAdministratorExist())
             {
                 return Forbid();
             }
@@ -36,36 +36,32 @@ namespace Codidact.Authentication.Web.Models
             return Page();
         }
 
+        // Todo. Validate CSRF-token.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (DidFirstUseAlreadyRun())
+            if (_init.DoesAdministratorExist())
             {
                 return Forbid();
             }
 
             if (ModelState.IsValid)
             {
-                var result = await _userManager.CreateAsync(
-                    new ApplicationUser
-                    {
-                        UserName = Email,
-                        Email = Email
-                    },
-                    Password);
+                var result = await _init.CreateAdministratorAsync(Email, Password);
 
                 if (result.Succeeded)
                 {
                     return Redirect("/index");
                 }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
             }
 
             return Page();
-        }
-
-        private bool DidFirstUseAlreadyRun()
-        {
-            // Todo. Race condition when multiple clients open '/account/firstuse'.
-            return _userManager.Users.FirstOrDefault() != null;
         }
     }
 }
