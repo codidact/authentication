@@ -11,7 +11,7 @@ using IdentityServer4.Services;
 
 using Codidact.Authentication.Domain.Entities;
 
-namespace Codidact.Authentication.Web.Models
+namespace Codidact.Authentication.Web.Pages
 {
     [BindProperties]
     public class LoginModel : PageModel

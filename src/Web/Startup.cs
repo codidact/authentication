@@ -41,7 +41,6 @@ namespace Codidact.Authentication.Web
             }
             else
             {
-                // Todo. Implement this for production.
                 throw new NotImplementedException();
             }
 

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Codidact.Authentication.Domain.Entities;
 using Codidact.Authentication.Application.Services;
 
-namespace Codidact.Authentication.Web.Models
+namespace Codidact.Authentication.Web.Pages
 {
     [BindProperties]
     public class FirstUseModel : PageModel
