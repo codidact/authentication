@@ -1,0 +1,9 @@
+@page
+@model LogoutModel
+
+<form asp-page="/account/logout" method="post">
+    <input asp-for="ReturnUrl" type="hidden" />
+
+    Would you like to logout?
+    <button>Yes</button>
+</form>
