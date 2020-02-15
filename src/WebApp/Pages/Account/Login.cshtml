@@ -2,6 +2,8 @@
 @model LoginModel
 
 <form asp-page="/account/login" method="post">
+    <input type="hidden" asp-for="ReturnUrl" />
+
     <label asp-for="Email">Email:</label>
     <input asp-for="Email" /><br>
 
@@ -11,7 +13,7 @@
     <label>Remember Login</label>
     <input asp-for="RememberLogin" /><br>
 
-    <input type="hidden" asp-for="ReturnUrl" />
-
     <button>Login</button>
+
+    <partial name="_ValidationSummary" />
 </form>

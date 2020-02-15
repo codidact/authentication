@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using Codidact.Authentication.Application.Services;
+using Codidact.Authentication.WebApp.Common;
 
 namespace Codidact.Authentication.WebApp.Pages.Account
 {
+    [SecurityHeaders]
     [BindProperties]
     public class FirstUseModel : PageModel
     {
@@ -34,7 +36,6 @@ namespace Codidact.Authentication.WebApp.Pages.Account
             return Page();
         }
 
-        // Todo. Validate CSRF-token.
         public async Task<IActionResult> OnPostAsync()
         {
             if (_init.DoesAdministratorExist())

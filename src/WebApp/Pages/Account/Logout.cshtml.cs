@@ -9,9 +9,11 @@ using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 
 using Codidact.Authentication.Domain.Entities;
+using Codidact.Authentication.WebApp.Common;
 
 namespace Codidact.Authentication.WebApp.Pages.Account
 {
+    [SecurityHeaders]
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;

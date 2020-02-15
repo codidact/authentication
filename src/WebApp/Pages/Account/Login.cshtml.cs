@@ -10,9 +10,11 @@ using IdentityServer4.Events;
 using IdentityServer4.Services;
 
 using Codidact.Authentication.Domain.Entities;
+using Codidact.Authentication.WebApp.Common;
 
 namespace Codidact.Authentication.WebApp.Pages.Account
 {
+    [SecurityHeaders]
     [BindProperties]
     public class LoginModel : PageModel
     {
@@ -52,14 +54,7 @@ namespace Codidact.Authentication.WebApp.Pages.Account
                     var user = await _userManager.FindByEmailAsync(Email);
                     await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.UserName));
 
-                    if (Url.IsLocalUrl(ReturnUrl))
-                    {
-                        return Redirect(ReturnUrl);
-                    }
-                    else
-                    {
-                        return BadRequest();
-                    }
+                    return Redirect(ReturnUrl);
                 }
                 else
                 {

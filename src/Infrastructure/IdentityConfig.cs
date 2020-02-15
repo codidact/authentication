@@ -20,9 +20,9 @@ namespace Codidact.Authentication.Infrastructure
                 new Client
                 {
                     ClientId = "codidact.com",
-                    ClientSecrets = { new Secret("foo".Sha256()), },
+                    ClientSecrets = { new Secret("foo"), },
 
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedGrantTypes = GrantTypes.Code,
                     AllowedScopes = { "openid" },
                 },
             };

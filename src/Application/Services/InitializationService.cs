@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 using Codidact.Authentication.Domain.Entities;
 
@@ -14,14 +15,20 @@ namespace Codidact.Authentication.Application.Services
     public class InitializationService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<InitializationService> _logger;
 
-        public InitializationService(UserManager<ApplicationUser> userManager)
+        public InitializationService(
+            UserManager<ApplicationUser> userManager,
+            ILogger<InitializationService> logger)
         {
             _userManager = userManager;
+            _logger = logger;
         }
 
         public Task<IdentityResult> CreateAdministratorAsync(string email, string password)
         {
+            _logger.LogWarning($"Creating Administrator '{email}'.");
+
             return _userManager.CreateAsync(
                 new ApplicationUser
                 {
