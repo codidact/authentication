@@ -29,7 +29,7 @@ namespace Codidact.Authentication.WebApp
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
 
-            services.AddInfrastructure();
+            services.AddInfrastructure(Configuration);
             services.AddApplication();
         }
 
@@ -44,9 +44,12 @@ namespace Codidact.Authentication.WebApp
                 throw new NotImplementedException();
             }
 
-            app.UseAuthentication();
+            app.UseIdentityServer();
+            app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

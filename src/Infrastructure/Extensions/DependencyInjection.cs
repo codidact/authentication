@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
@@ -9,12 +10,11 @@ namespace Codidact.Authentication.Infrastructure.Extensions
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("authentication"));
 
-            // Todo. AddIdentity?
             services.AddIdentityCore<ApplicationUser>(options =>
                 {
                     options.Password.RequireDigit = false;
@@ -27,9 +27,13 @@ namespace Codidact.Authentication.Infrastructure.Extensions
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddSignInManager();
 
-            services.AddAuthentication();
+            services.AddIdentityServer()
+                .AddInMemoryClients(IdentityConfig.GetClients())
+                .AddInMemoryIdentityResources(IdentityConfig.GetIdentityResources())
+                .AddAspNetIdentity<ApplicationUser>();
 
-            services.AddIdentityServer();
+            services.AddAuthentication()
+                .AddIdentityCookies();
 
             return services;
         }
