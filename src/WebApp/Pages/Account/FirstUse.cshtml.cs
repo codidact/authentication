@@ -3,12 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Identity;
 
-using Codidact.Authentication.Domain.Entities;
 using Codidact.Authentication.Application.Services;
 
-namespace Codidact.Authentication.Web.Pages
+namespace Codidact.Authentication.WebApp.Pages.Account
 {
     [BindProperties]
     public class FirstUseModel : PageModel

@@ -4,13 +4,13 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Codidact.Authentication.Web
+namespace Codidact.Authentication.WebApp
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            Console.Title = "Codidact.Authentication.Web";
+            Console.Title = "Codidact.Authentication.WebApp";
 
             CreateWebHostBuilder(args).Build().Run();
         }

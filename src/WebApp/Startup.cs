@@ -13,7 +13,7 @@ using Codidact.Authentication.Infrastructure.Extensions;
 using Codidact.Authentication.Infrastructure.Persistance;
 using Codidact.Authentication.Application.Services;
 
-namespace Codidact.Authentication.Web
+namespace Codidact.Authentication.WebApp
 {
     public class Startup
     {
