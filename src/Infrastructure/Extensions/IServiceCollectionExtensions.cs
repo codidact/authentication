@@ -28,9 +28,10 @@ namespace Codidact.Authentication.Infrastructure.Extensions
                 .AddSignInManager();
 
             services.AddIdentityServer()
-                .AddInMemoryClients(IdentityConfig.GetClients())
+                .AddInMemoryClients(configuration.GetSection("IdentityServer:Clients"))
                 .AddInMemoryIdentityResources(IdentityConfig.GetIdentityResources())
-                .AddAspNetIdentity<ApplicationUser>();
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddDeveloperSigningCredential();
 
             services.AddAuthentication()
                 .AddIdentityCookies();

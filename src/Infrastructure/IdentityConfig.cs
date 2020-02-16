@@ -12,20 +12,5 @@ namespace Codidact.Authentication.Infrastructure
                 new IdentityResources.OpenId(),
             };
         }
-
-        public static IEnumerable<Client> GetClients()
-        {
-            return new Client[]
-            {
-                new Client
-                {
-                    ClientId = "codidact.com",
-                    ClientSecrets = { new Secret("foo"), },
-
-                    AllowedGrantTypes = GrantTypes.Code,
-                    AllowedScopes = { "openid" },
-                },
-            };
-        }
     }
 }

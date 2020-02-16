@@ -35,9 +35,9 @@ namespace Codidact.Authentication.WebApp
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
+            else if (env.EnvironmentName != "Testing")
             {
-                throw new NotImplementedException();
+                throw new NotImplementedException(env.EnvironmentName);
             }
 
             app.UseStaticFiles();
