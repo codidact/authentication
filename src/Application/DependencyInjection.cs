@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 using Codidact.Authentication.Application.Services;
 
-namespace Codidact.Authentication.Application.Extensions
+namespace Codidact.Authentication.Application
 {
     public static class DependencyInjection
     {

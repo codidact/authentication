@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-using Codidact.Authentication.Application.Extensions;
-using Codidact.Authentication.Infrastructure.Extensions;
+using Codidact.Authentication.Application;
+using Codidact.Authentication.Infrastructure;
 
 namespace Codidact.Authentication.WebApp
 {

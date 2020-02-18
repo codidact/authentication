@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Codidact.Authentication.Infrastructure.Persistance;
 using Codidact.Authentication.Domain.Entities;
 
-namespace Codidact.Authentication.Infrastructure.Extensions
+namespace Codidact.Authentication.Infrastructure
 {
     public static class DependencyInjection
     {
