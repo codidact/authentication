@@ -54,7 +54,7 @@ namespace Codidact.Authentication.WebApp.Pages.Account
                     var user = await _userManager.FindByEmailAsync(Email);
                     await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.UserName));
 
-                    return Redirect(ReturnUrl);
+                    return LocalRedirect(ReturnUrl);
                 }
                 else
                 {
