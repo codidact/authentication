@@ -29,7 +29,7 @@ namespace Codidact.Authentication.Infrastructure
 
             services.AddIdentityServer()
                 .AddInMemoryClients(configuration.GetSection("IdentityServer:Clients"))
-                .AddInMemoryIdentityResources(IdentityConfig.GetIdentityResources())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddDeveloperSigningCredential();
 

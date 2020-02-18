@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+
 using IdentityServer4.Models;
 
 namespace Codidact.Authentication.Infrastructure
 {
-    public class IdentityConfig
+    public class Config
     {
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {

@@ -40,9 +40,19 @@ namespace Codidact.Authentication.WebApp.Pages.Account
         [Required, DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [Required]
         public bool RememberLogin { get; set; } = false;
 
+        [Required]
         public string ReturnUrl { get; set; } = "/index";
+
+        public void OnGet([FromQuery] string returnUrl)
+        {
+            if (returnUrl != null)
+            {
+                ReturnUrl = returnUrl;
+            }
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {

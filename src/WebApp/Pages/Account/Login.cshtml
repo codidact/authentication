@@ -2,7 +2,7 @@
 @model LoginModel
 
 <form asp-page="/account/login" method="post">
-    <input type="hidden" asp-for="ReturnUrl" />
+    <input asp-for="ReturnUrl" type="hidden" />
 
     <label asp-for="Email">Email:</label>
     <input asp-for="Email" /><br>

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,6 +15,7 @@ using Codidact.Authentication.WebApp.Common;
 namespace Codidact.Authentication.WebApp.Pages.Account
 {
     [SecurityHeaders]
+    [BindProperties]
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -27,7 +29,16 @@ namespace Codidact.Authentication.WebApp.Pages.Account
             _events = events;
         }
 
+        [Required]
         public string ReturnUrl { get; set; } = "/index";
+
+        public void OnGet([FromQuery] string returnUrl)
+        {
+            if (returnUrl != null)
+            {
+                ReturnUrl = returnUrl;
+            }
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {

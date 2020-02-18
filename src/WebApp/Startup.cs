@@ -9,6 +9,9 @@ using Microsoft.Extensions.Hosting;
 using Codidact.Authentication.Application;
 using Codidact.Authentication.Infrastructure;
 
+using Microsoft.AspNetCore.Identity;
+using Codidact.Authentication.Domain.Entities;
+
 namespace Codidact.Authentication.WebApp
 {
     public class Startup
@@ -55,6 +58,18 @@ namespace Codidact.Authentication.WebApp
             {
                 endpoints.MapRazorPages();
             });
+
+            // Todo. I removed and re-added this a couple of times, I should finally make up my mind.
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var users = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+
+                users.CreateAsync(new ApplicationUser
+                {
+                    UserName = "admin@codidact",
+                    Email = "admin@codidact"
+                }, "password");
+            }
         }
     }
 }
