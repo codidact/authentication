@@ -9,7 +9,7 @@ using Codidact.Authentication.Domain.Entities;
 namespace Codidact.Authentication.Application.Services
 {
     /// <summary>
-    /// When the application is run for the first thme, there are a number of things
+    /// When the application is run for the first time, there are a number of things
     /// to take care of. This service does all of these things.
     /// </summary>
     public class InitializationService
