@@ -1,10 +1,10 @@
 @page
 
-<h1>This is The Index! I am Cephalon Sark, your unbiased host!</h1>
+<h2>This is The Index! I am Cephalon Sark, your unbiased host!</h2>
 
 @if (User?.Identity.IsAuthenticated ?? false)
 {
-    <p>You are logged in as @User.Identity.Name, would you like to <a asp-page="/account/logout">logout</a>?</p>
+    <p>You are logged in as <b>@User.Identity.Name</b>, would you like to <a asp-page="/account/logout">logout</a>?</p>
 }
 else
 {
