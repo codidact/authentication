@@ -1,3 +1,7 @@
+# Ignore binary files that are created during the build process.
 /bin/
 /obj/
+
+# This file is created by the identity server, specifically by the
+# 'AddDeveloperSigningCredential' extension method.
 /tempkey.rsa
