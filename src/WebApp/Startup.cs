@@ -1,15 +1,16 @@
 using System;
+using System.Linq;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 using Codidact.Authentication.Application;
 using Codidact.Authentication.Infrastructure;
-
-using Microsoft.AspNetCore.Identity;
+using Codidact.Authentication.Infrastructure.Persistance;
 using Codidact.Authentication.Domain.Entities;
 
 namespace Codidact.Authentication.WebApp
@@ -59,16 +60,30 @@ namespace Codidact.Authentication.WebApp
                 endpoints.MapRazorPages();
             });
 
-            // Todo. I removed and re-added this a couple of times, I should finally make up my mind.
+            SeedDatabase(app);
+        }
+
+        private static void SeedDatabase(IApplicationBuilder app)
+        {
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var users = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+                var db = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-                users.CreateAsync(new ApplicationUser
+                // Todo. Use database migrations in the future.
+                db.Database.EnsureCreated();
+
+                // Todo. Remove this when we have a registration page.
+                if (!users.Users.Any())
                 {
-                    UserName = "admin@codidact",
-                    Email = "admin@codidact"
-                }, "password");
+                    users.CreateAsync(new ApplicationUser
+                    {
+                        UserName = "admin@codidact",
+                        Email = "admin@codidact"
+                    }, "password");
+                }
+
+                db.SaveChangesAsync().Wait();
             }
         }
     }

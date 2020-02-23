@@ -12,10 +12,14 @@ namespace Codidact.Authentication.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseInMemoryDatabase("authentication"));
+            services
+                .AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseSqlite(configuration.GetConnectionString("Authentication"));
+                });
 
-            services.AddIdentityCore<ApplicationUser>(options =>
+            services
+                .AddIdentityCore<ApplicationUser>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 8;
@@ -27,13 +31,15 @@ namespace Codidact.Authentication.Infrastructure
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddSignInManager();
 
-            services.AddIdentityServer()
+            services
+                .AddIdentityServer()
                 .AddInMemoryClients(configuration.GetSection("IdentityServer:Clients"))
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddDeveloperSigningCredential();
 
-            services.AddAuthentication()
+            services
+                .AddAuthentication()
                 .AddIdentityCookies();
 
             return services;

@@ -1,7 +1,9 @@
-# Ignore binary files that are created during the build process.
+# These directories are created by msbuild.
 /bin/
 /obj/
 
-# This file is created by the identity server, specifically by the
-# 'AddDeveloperSigningCredential' extension method.
+# This file is created by the method 'AddDeveloperSigningCredential'.
 /tempkey.rsa
+
+# This file is created by the method 'AddSqlite'.
+/authentication.db
