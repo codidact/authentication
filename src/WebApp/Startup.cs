@@ -40,16 +40,6 @@ namespace Codidact.Authentication.WebApp
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Todo. Find a better way of doing this.
-            //
-            // The hostname is sometimes used for redirects.
-            app.Use(async (context, next) =>
-            {
-                context.Request.Host = new Microsoft.AspNetCore.Http.HostString("sso.localhost");
-                context.Request.IsHttps = true;
-                await next();
-            });
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

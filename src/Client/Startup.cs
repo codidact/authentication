@@ -38,16 +38,7 @@ namespace Codidact.Authentication.Client
                 .AddCookie("cookie")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    if (_environment.IsDevelopment())
-                    {
-                        // Do not verify server certificates. This is useful for development because you typically do not
-                        // use a trusted certificate for localhost.
-                        var httpHandler = new HttpClientHandler();
-                        httpHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-                        options.BackchannelHttpHandler = httpHandler;
-                    }
-
-                    options.Authority = "https://sso.localhost";
+                    options.Authority = "http://localhost:5001";
 
                     options.CallbackPath = "/signin-oidc";
 
@@ -73,16 +64,6 @@ namespace Codidact.Authentication.Client
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Todo. Find a better way of doing this.
-            //
-            // The hostname is sometimes used for redirects.
-            app.Use(async (context, next) =>
-            {
-                context.Request.Host = new Microsoft.AspNetCore.Http.HostString("localhost");
-                context.Request.IsHttps = true;
-                await next();
-            });
-
             app.UseDeveloperExceptionPage();
 
             // Todo. Is this required?
