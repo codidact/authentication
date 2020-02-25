@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Codidact.Authentication.Web",
+            "name": "Launch Codidact.Authentication.WebApp",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -11,6 +11,17 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
             },
+            "logging": {
+                "moduleLoad": false,
+            }
+        },
+        {
+            "name": "Launch Codidact.Authentication.Client",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Client/bin/Debug/netcoreapp3.1/Codidact.Authentication.Client.dll",
+            "cwd": "${workspaceFolder}/src/Client",
             "logging": {
                 "moduleLoad": false,
             }

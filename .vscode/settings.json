@@ -4,7 +4,6 @@
         "**/.git/": true,
         "**/bin/": true,
         "**/obj/": true,
-        "src/WebApp/tempkey.rsa": true,
     },
     "editor.tabSize": 4,
     "editor.insertSpaces": true,

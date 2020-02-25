@@ -1,0 +1,11 @@
+@page
+@model LogoutModel
+
+@* Todo. The hostname should not be hard-coded. *@
+<form asp-page="https://sso.localhost/account/logout" method="post">
+    @* Todo. The return url should not be hard-coded. *@
+    <input name="ReturnUrl" type="hidden" value="https://localhost" />
+
+    Would you like to logout?
+    <button>Yes</button>
+</form>

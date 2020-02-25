@@ -40,6 +40,65 @@ You can download Visual Studio from [here][5], the 'Community' edition is suffic
 *Note. More detailed instructions will be added in the future, for now you can take this
 information form [codidact/core#31][8]. Look at the [`windows-instructions.md`][7] file.*
 
+### Nginx
+
+You can change the configuration to work without a web-server but it is recommended to use
+one. By default, the authentication listens on port 8080 and core on 5000. The following
+configuration can be used:
+
+~~~none
+error_log /var/log/nginx/error.log warn;
+
+events {
+}
+
+http {
+    access_log /var/log/nginx/access.log;
+
+    ssl_certificate     certs/localhost.crt.pem;
+    ssl_certificate_key certs/localhost.key.pem;
+
+    # Redirect HTTP requests to HTTPS.
+    server {
+        listen 80;
+
+        return 301 https://$host$request_uri;
+    }
+
+    # Terminate encryption and pass requests to 'authentication'.
+    server {
+        listen 443 ssl;
+        server_name sso.localhost;
+
+        location / {
+            proxy_pass http://127.0.0.1:8080;
+        }
+    }
+
+    # Terminate encryption and pass requests to 'core'.
+    server {
+        listen 443 ssl;
+        server_name localhost;
+
+        location / {
+            proxy_pass http://127.0.0.1:5000;
+        }
+    }
+}
+~~~
+
+*Note. For production, this configuration would have to be changed to use `ssl_preload`
+to pass requests to 'authentication' without terminating encryption.*
+
+The certificates can be generated with:
+
+~~~none
+mkdir certs
+openssl req -x509 -newkey rsa -keyout certs/localhost.key.pem -out certs/localhost.crt.pem -nodes -subj '/CN=localhost/'
+~~~
+
+*Note. This will create a self signed certificate, if you visit https://localhost, you will get a warning.*
+
   [1]: https://github.com/codidact/core
   [2]: https://dotnet.microsoft.com/download
   [3]: https://dotnet.microsoft.com/download/dotnet-core/3.1

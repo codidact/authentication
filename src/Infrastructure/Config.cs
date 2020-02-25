@@ -11,6 +11,7 @@ namespace Codidact.Authentication.Infrastructure
             return new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
             };
         }
     }
