@@ -60,7 +60,7 @@ namespace Codidact.Authentication.Client
                     // Todo. What does this do?
                     options.RequireHttpsMetadata = false;
 
-                    options.ClientId = "codidact.com";
+                    options.ClientId = "codidact_client";
                     options.ClientSecret = "foo";
                     options.ResponseType = "code";
 
