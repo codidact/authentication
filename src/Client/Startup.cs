@@ -56,9 +56,12 @@ namespace Codidact.Authentication.Client
                     options.Authority = "http://localhost:5001";
 
                     options.CallbackPath = "/signin-oidc";
+                    options.SignedOutCallbackPath = "/signout-callback-oidc";
 
-                    // Todo. What does this do?
-                    options.RequireHttpsMetadata = false;
+                    if (_environment.IsDevelopment())
+                    {
+                        options.RequireHttpsMetadata = false;
+                    }
 
                     options.ClientId = "codidact_client";
                     options.ClientSecret = "foo";
