@@ -45,16 +45,18 @@ namespace Codidact.Authentication.Infrastructure
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddSignInManager();
 
-            services
-                .AddIdentityServer()
+            var identityServerBuilder = services.AddIdentityServer()
                 .AddInMemoryClients(configuration.GetSection("IdentityServer:Clients"))
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddAspNetIdentity<ApplicationUser>()
-                .AddDeveloperSigningCredential();
+                .AddAspNetIdentity<ApplicationUser>();
 
-            services
-                .AddAuthentication()
-                            .AddIdentityCookies();
+            if (environment.IsDevelopment() || environment.EnvironmentName == "Testing")
+            {
+                identityServerBuilder.AddDeveloperSigningCredential();
+            }
+
+            services.AddAuthentication()
+                .AddIdentityCookies();
 
             return services;
         }
