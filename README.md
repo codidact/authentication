@@ -8,5 +8,6 @@ a different database that is completely seperated from everything that Core does
 This information can then be retrieved by the core application on demand.
 
 Build instructions and such are avaliable in the [codidact/core][1] repository.
+Additional instructions can be found in `docs/development.md`.
 
   [1]: https://github.com/codidact/core
