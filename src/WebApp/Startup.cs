@@ -18,10 +18,12 @@ namespace Codidact.Authentication.WebApp
     public class Startup
     {
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             _configuration = configuration;
+            _environment = environment;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -34,7 +36,7 @@ namespace Codidact.Authentication.WebApp
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
 
-            services.AddInfrastructure(_configuration);
+            services.AddInfrastructure(_configuration, _environment);
             services.AddApplication(_configuration);
         }
 

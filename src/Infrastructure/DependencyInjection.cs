@@ -1,22 +1,36 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
 
 using Codidact.Authentication.Infrastructure.Persistance;
+using Codidact.Authentication.Infrastructure.Common.Interfaces;
+using Codidact.Authentication.Infrastructure.Services;
 using Codidact.Authentication.Domain.Entities;
 
 namespace Codidact.Authentication.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            IWebHostEnvironment environment)
         {
+            if (environment.IsDevelopment() || environment.EnvironmentName == "Testing")
+            {
+                services.AddScoped<ISecretsService, DevelopmentSecretsService>();
+            }
+
             services
-                .AddDbContext<ApplicationDbContext>(options =>
-                {
-                    options.UseSqlite(configuration.GetConnectionString("Authentication"));
-                });
+                .AddDbContext<ApplicationDbContext>(async (provider, options) =>
+                        {
+                            var secrets = provider.GetService<ISecretsService>();
+
+                            options.UseSqlite(await secrets.Get("ConnectionStrings:Authentication"));
+                        });
 
             services
                 .AddIdentityCore<ApplicationUser>(options =>
@@ -40,7 +54,7 @@ namespace Codidact.Authentication.Infrastructure
 
             services
                 .AddAuthentication()
-                .AddIdentityCookies();
+                            .AddIdentityCookies();
 
             return services;
         }
