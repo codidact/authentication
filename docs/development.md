@@ -9,7 +9,7 @@ Defaults for these files are located in `/docs/defaults` and can be used by
 copying them into the same directory but removing the prefix, for example:
 
 ~~~none
-cp -r ./docs/defaults/src/WebApp ./src/WebApp
+cp ./docs/defaults/src/WebApp/appsettings.json ./src/WebApp/appsettings.json
 ~~~
 
 If you want to install all files automatically, you can use:
