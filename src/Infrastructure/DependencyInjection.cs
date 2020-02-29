@@ -26,11 +26,11 @@ namespace Codidact.Authentication.Infrastructure
 
             services
                 .AddDbContext<ApplicationDbContext>(async (provider, options) =>
-                        {
-                            var secrets = provider.GetService<ISecretsService>();
+                {
+                    var secrets = provider.GetService<ISecretsService>();
 
-                            options.UseSqlite(await secrets.Get("ConnectionStrings:Authentication"));
-                        });
+                    options.UseSqlite(await secrets.Get("ConnectionStrings:Authentication"));
+                });
 
             services
                 .AddIdentityCore<ApplicationUser>(options =>

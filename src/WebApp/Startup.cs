@@ -33,10 +33,11 @@ namespace Codidact.Authentication.WebApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRouting(options =>
-            {
-                options.LowercaseUrls = true;
-            });
+            services
+                .AddRouting(options =>
+                {
+                    options.LowercaseUrls = true;
+                });
 
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
