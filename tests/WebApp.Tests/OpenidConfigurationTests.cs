@@ -35,7 +35,7 @@ namespace Codidact.Authentication.WebApp.Tests
                 })
                 .ConfigureWebHost(webhost =>
                 {
-                    webhost.UseEnvironment("Testing");
+                    webhost.UseEnvironment(Environments.Development);
                     webhost.UseTestServer();
                     webhost.UseStartup<Startup>();
                 })

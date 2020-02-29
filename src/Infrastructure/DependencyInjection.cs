@@ -19,7 +19,7 @@ namespace Codidact.Authentication.Infrastructure
             IConfiguration configuration,
             IWebHostEnvironment environment)
         {
-            if (environment.IsDevelopment() || environment.EnvironmentName == "Testing")
+            if (environment.IsDevelopment())
             {
                 services.AddScoped<ISecretsService, DevelopmentSecretsService>();
             }

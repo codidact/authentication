@@ -24,6 +24,11 @@ namespace Codidact.Authentication.WebApp
         {
             _configuration = configuration;
             _environment = environment;
+
+            if (!environment.IsDevelopment() && !environment.IsProduction())
+            {
+                throw new NotImplementedException($"The environment '{environment.EnvironmentName}' has not been configured yet.");
+            }
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -46,9 +51,11 @@ namespace Codidact.Authentication.WebApp
             {
                 app.UseDeveloperExceptionPage();
             }
-            else if (env.EnvironmentName != "Testing")
+
+            if (env.IsProduction())
             {
-                throw new NotImplementedException(env.EnvironmentName);
+                app.UseHsts();
+                app.UseHttpsRedirection();
             }
 
             app.UseStaticFiles();
