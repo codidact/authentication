@@ -1,3 +1,0 @@
-# Ignore binary files that are created during the build process.
-/obj/
-/bin/

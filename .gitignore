@@ -1,0 +1,8 @@
+# Ignore binary files that are created during the build process.
+bin/
+obj/
+
+# Ignore files that depend on the development environment, defaults
+# can be found in '/docs/defaults'.
+/.vs/
+/.vscode/

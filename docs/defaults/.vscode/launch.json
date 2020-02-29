@@ -15,16 +15,5 @@
                 "moduleLoad": false,
             }
         },
-        {
-            "name": "Launch Codidact.Authentication.Client",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Client/bin/Debug/netcoreapp3.1/Codidact.Authentication.Client.dll",
-            "cwd": "${workspaceFolder}/src/Client",
-            "logging": {
-                "moduleLoad": false,
-            }
-        },
     ]
 }

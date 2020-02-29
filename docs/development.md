@@ -1,46 +1,29 @@
 # Development Instructions
 
-The authentication server is configured though the `src/WebApp/appsettings.json`
-file. There are no comments allowed in this file, the following is pseudo code:
+## Configuration
 
-~~~json
-{
-    // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-3.1#configuration
-    "Logging": {
-        "LogLevel": {
-            "Default": "Information",
-            "Microsoft": "Warning"
-        }
-    },
-    "IdentityServer": {
-        "Clients": [
-            {
-                "ClientId": "codidact_client",
-                "ClientSecrets": [
-                    {
-                        // This is the SHA256 of 'foo' encoded using base64.
-                        "Value": "LCa0a2j/xo/5m0U8HTBBNBNCLXBkg7+g+YpeiGJm564="
-                    }
-                ],
-                "AllowedGrantTypes": [
-                    "authorization_code"
-                ],
-                "AllowedScopes": [
-                    "openid",
-                    "profile"
-                ],
-                "RedirectUris": [
-                    // The hostname must match with the hostname that core listens too. The path 'signin-oidc'
-                    // must match with the 'CallbackUrl' parameter.
-                    "http://localhost:5000/signin-oidc"
-                ],
-                "RequireConsent": false
-            }
-        ]
-    },
-    "ConnectionStrings": {
-        // This path is relative to `src/WebApp`.
-        "Authentication": "Data Source=authentication.db"
-    }
-}
+There are a few files that can be used to configure your IDE or to change the
+configuration of the authentication server.
+
+Defaults for these files are located in `/docs/defaults` and can be used by
+copying them into the same directory but removing the prefix, for example:
+
+~~~none
+cp -r ./docs/defaults/src/WebApp ./src/WebApp
 ~~~
+
+If you want to install all files automatically, you can use:
+
+~~~none
+rsync -a ./docs/defaults/ ./
+~~~
+
+## Running the Tests
+
+You can run the tests by running `dotnet test` in the root directory.
+
+## Running the Server
+
+You can run the authentication server using `dotnet run` in the `src/WebApp`
+directory, or by clicking `Debug > Start Debugging` if you use Visual Studio Code
+and used the default configuration.
