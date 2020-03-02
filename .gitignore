@@ -1,3 +1,16 @@
+# There was a discussion about whether we should use a more compact or more
+# comprehensive '.gitignore' file. The former is easier to understand and
+# review, while the latter can prevent mistakes. We decided to go with a more
+# compact version for the time beeing [1].
+#
+# If you are in the situation that you accidentally commited stuff that did
+# not belong into the repository, that would have been prevented by the
+# standard '.gitignore' file for dotnet [2], then consider creating an issue
+# about this and we can revisit this decision.
+#
+#   [1]: https://github.com/codidact/authentication/pull/2#issuecomment-592941413
+#   [2]: https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
+
 # Ignore binary files that are created during the build process.
 bin/
 obj/
