@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Codidact.Authentication.WebApp",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/WebApp/bin/Debug/netcoreapp3.1/Codidact.Authentication.WebApp.dll",
+            "cwd": "${workspaceFolder}/src/WebApp",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+            },
+            "logging": {
+                "moduleLoad": false,
+            }
+        },
+    ]
+}

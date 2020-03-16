@@ -1,0 +1,3 @@
+# Consider all files in the repository to be text files and convert the
+# line endings to linefeeds before commiting them.
+* text eol=nl

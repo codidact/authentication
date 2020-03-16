@@ -1,0 +1,10 @@
+# This file is created by the method 'AddDeveloperSigningCredential'.
+/tempkey.rsa
+
+# This file is created by the method 'AddSqlite'.
+/authentication.db
+
+# Ignore files that depend on the development environment, defaults
+# can be found in '/docs/defaults'.
+/appsettings.json
+/Properties/launchSettings.json
