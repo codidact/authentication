@@ -1,0 +1,19 @@
+﻿@page
+@model RegisterModel
+
+    <form asp-page="/account/login" method="post">
+        <input asp-for="ReturnUrl" type="hidden" />
+
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" /><br>
+
+        <label asp-for="Password">Password:</label>
+        <input asp-for="Password" /><br>
+
+        <label asp-for="ConfirmPassword">Repeat your password:</label>
+        <input asp-for="ConfirmPassword" /><br>
+
+        <button>Create account</button>
+
+        <partial name="_ValidationSummary" />
+    </form>
