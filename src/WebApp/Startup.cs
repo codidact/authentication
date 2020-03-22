@@ -69,32 +69,6 @@ namespace Codidact.Authentication.WebApp
             {
                 endpoints.MapRazorPages();
             });
-
-            SeedDatabase(app);
-        }
-
-        private static void SeedDatabase(IApplicationBuilder app)
-        {
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                var users = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
-                var db = scope.ServiceProvider.GetService<ApplicationDbContext>();
-
-                // Todo. Use database migrations in the future.
-                db.Database.EnsureCreated();
-
-                // Todo. Remove this when we have a registration page.
-                if (!users.Users.Any())
-                {
-                    users.CreateAsync(new ApplicationUser
-                    {
-                        UserName = "admin@codidact",
-                        Email = "admin@codidact"
-                    }, "password");
-                }
-
-                db.SaveChangesAsync().GetAwaiter().GetResult();
-            }
         }
     }
 }
