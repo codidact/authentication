@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Codidact.Authentication.Domain.Entities;
-using IdentityServer4.Events;
-using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Codidact.Authentication.WebApp.Pages.Account
 {
+    [BindProperties]
     public class RegisterModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IEventService _events;
 
         public RegisterModel(
-                          UserManager<ApplicationUser> userManager,
-                          IEventService events)
+                          UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _events = events;
         }
 
         [Required, DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
 
         [Required, DataType(DataType.Text)]
         public string DisplayName { get; set; }

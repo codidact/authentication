@@ -3,6 +3,7 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>Codidact.Authentication.WebApp</RootNamespace>
         <AssemblyName>Codidact.Authentication.WebApp</AssemblyName>
+        <UserSecretsId>ee41df6e-804d-41e7-b680-4ba0dc65407c</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,5 +14,9 @@
         <ProjectReference Include="../Application/Application.csproj" />
         <ProjectReference Include="../Domain/Domain.csproj" />
         <ProjectReference Include="../Infrastructure/Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
     </ItemGroup>
 </Project>

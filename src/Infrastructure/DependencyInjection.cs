@@ -9,6 +9,7 @@ using Codidact.Authentication.Infrastructure.Persistance;
 using Codidact.Authentication.Infrastructure.Common.Interfaces;
 using Codidact.Authentication.Infrastructure.Services;
 using Codidact.Authentication.Domain.Entities;
+using Codidact.Authentication.Application.Common.Interfaces;
 
 namespace Codidact.Authentication.Infrastructure
 {
@@ -22,14 +23,16 @@ namespace Codidact.Authentication.Infrastructure
             if (environment.IsDevelopment())
             {
                 services.AddScoped<ISecretsService, DevelopmentSecretsService>();
+                services.AddScoped<ICoreApiService, DevelopmentCoreApiService>();
             }
 
             services
                 .AddDbContext<ApplicationDbContext>(async (provider, options) =>
                 {
                     var secrets = provider.GetService<ISecretsService>();
-
-                    options.UseSqlite(await secrets.Get("ConnectionStrings:Authentication"));
+                    var connectionString = secrets.Get("ConnectionStrings:Authentication").GetAwaiter().GetResult();
+                    options.UseNpgsql(connectionString,
+                       b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
                 });
 
             services

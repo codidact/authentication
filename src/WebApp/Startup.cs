@@ -93,7 +93,7 @@ namespace Codidact.Authentication.WebApp
                     }, "password");
                 }
 
-                db.SaveChanges();
+                db.SaveChangesAsync().GetAwaiter().GetResult();
             }
         }
     }
