@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Codidact.Authentication.Application.Common.Interfaces
 {
     /// <summary>
-    /// Service that connect to the Core Codidact API
+    /// A Service that connects to the Core Codidact API.
     /// </summary>
     public interface ICoreApiService
     {
