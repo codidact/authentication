@@ -18,6 +18,9 @@ If you want to install all files automatically, you can use:
 rsync -a ./docs/defaults/ ./
 ~~~
 
+On Windows you can do this in the file explorer, just select all files in
+`/docs/defaults` and drag them into the root folder.
+
 ## Running the Tests
 
 You can run the tests by running `dotnet test` in the root directory.
