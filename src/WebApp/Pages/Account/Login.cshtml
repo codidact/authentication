@@ -1,35 +1,35 @@
 @page
 @model LoginModel
 
-<form asp-page="/account/login" method="post">
-    <div class="has-padding-2">
-        <h1>Sign in</h1>
-        <p>Welcome to Codidact! You can login to your account here. Don't have an account? <a asp-page="Register">Sign up instead.</a></p>
-    </div>
-    <input asp-for="ReturnUrl" type="hidden" />
+    <form asp-page="/account/login" method="post">
+        <div class="has-padding-2">
+            <h1>Sign in</h1>
+            <p>Welcome to Codidact! You can login to your account here. Don't have an account? <a asp-page="Register">Sign up instead.</a></p>
+        </div>
+        <input asp-for="ReturnUrl" type="hidden" />
 
-    <div class="widget">
-        <div class="widget--body">
-            <div class="has-padding-1">
-                <label asp-for="Email" class="form-element">E-Mail Address</label>
-                <input asp-for="Email" type="email" class="form-element" id="email">
+        <partial name="_ValidationSummary" />
+
+        <div class="widget">
+            <div class="widget--body">
+                <div class="has-padding-1">
+                    <label asp-for="Email" class="form-element">E-Mail Address</label>
+                    <input asp-for="Email" type="email" class="form-element" id="email">
+                </div>
+
+
+                <div class="has-padding-1">
+                    <label asp-for="Password" class="form-element">Password</label>
+                    <input asp-for="Password" class="form-element" type="password">
+                </div>
+
+                <div class="has-padding-1">
+                    <label asp-for="RememberLogin" class="form-element">Remember Login</label>
+                    <input asp-for="RememberLogin" class="form-checkbox-element" type="checkbox">
+                </div>
             </div>
-
-
-            <div class="has-padding-1">
-                <label asp-for="Password" class="form-element">Password</label>
-                <input asp-for="Password" class="form-element" type="password">
-            </div>
-
-            <div class="has-padding-1">
-                <label asp-for="RememberLogin" class="form-element">Remember Login</label>
-                <input asp-for="RememberLogin" class="form-checkbox-element" type="checkbox">
+            <div class="widget--footer">
+                <button type="submit" class="button is-filled">Log in</button>
             </div>
         </div>
-        <div class="widget--footer">
-            <button type="submit" class="button is-filled">Log in</button>
-        </div>
-    </div>
-
-    <partial name="_ValidationSummary" />
-</form>
+    </form>

@@ -30,10 +30,12 @@ namespace Codidact.Authentication.WebApp.Pages.Account
             _events = events;
         }
 
-        [Required, DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "E-Mail Address is Required")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required, DataType(DataType.Password)]
+        [Required(ErrorMessage = "Password is Required")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
