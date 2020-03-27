@@ -27,7 +27,7 @@ namespace Codidact.Authentication.Infrastructure
             }
 
             services
-                .AddDbContext<ApplicationDbContext>(async (provider, options) =>
+                .AddDbContext<ApplicationDbContext>((provider, options) =>
                 {
                     var secrets = provider.GetService<ISecretsService>();
                     var connectionString = secrets.Get("ConnectionStrings:Authentication").GetAwaiter().GetResult();
