@@ -5,17 +5,17 @@
 There are a few files that can be used to configure your IDE or to change the
 configuration of the authentication server.
 
-Defaults for these files are located in `/docs/defaults` and can be used by
+Defaults for these files are located in `/defaults` and can be used by
 copying them into the same directory but removing the prefix, for example:
 
 ~~~none
-cp ./docs/defaults/src/WebApp/appsettings.json ./src/WebApp/appsettings.json
+cp ./defaults/src/WebApp/appsettings.json ./src/WebApp/appsettings.json
 ~~~
 
 If you want to install all files automatically, you can use:
 
 ~~~none
-rsync -a ./docs/defaults/ ./
+rsync -a ./defaults/ ./
 ~~~
 
 On Windows you can do this in the file explorer, just select all files in
