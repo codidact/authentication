@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/lib/co-design/css/codidact.css" />
+    <link rel=stylesheet href="https://unpkg.com/@@codidact/co-design@0.5.0/dist/codidact.css" />
 </head>
 <body>
     <main class="container has-padding-4">
@@ -14,7 +14,7 @@
 
     <footer class="has-padding-4 has-border-top-style-solid has-border-top-width-1 has-border-color-tertiary-050">
         <div class="container">
-            &copy; 2020 - Codidact
+            &copy; @DateTime.Now.Year - Codidact
         </div>
     </footer>
     <script src="~/js/site.js" asp-append-version="true" async></script>
