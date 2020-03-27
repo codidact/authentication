@@ -1,0 +1,47 @@
+﻿@page
+@model RegisterModel
+
+    <form asp-page="/account/register" method="post">
+        <div class="has-padding-2">
+            <h1>Sign up</h1>
+            <p>Welcome to Codidact! You can create a new account here. Already have an account? <a asp-page="Login">Sign in instead.</a></p>
+        </div>
+        <input asp-for="ReturnUrl" type="hidden" />
+
+        <partial name="_ValidationSummary" />
+
+        <div class="widget">
+            <div class="widget--body">
+                <div class="has-padding-1">
+                    <label asp-for="Email" class="form-element">E-Mail Address</label>
+                    <input asp-for="Email" type="email" class="form-element" id="email">
+                    <p class="form-caption">Don't worry. We'll never give your email to someone else or send you emails you don't want.</p>
+                </div>
+
+                <div class="has-padding-1">
+                    <label asp-for="DisplayName" class="form-element">Display Name</label>
+                    <input asp-for="DisplayName" class="form-element">
+                    <p class="form-caption">Choose any name you want. It doesn't have to be unique and can be changed later.</p>
+                </div>
+
+                <div class="has-padding-1">
+                    <label asp-for="Password" class="form-element">Password</label>
+                    <input asp-for="Password" class="form-element" type="password">
+                    <p class="form-caption">Choose a strong one. At least 8 characters are recommended. Don't choose common words or names.</p>
+                </div>
+
+                <div class="has-padding-1">
+                    <label asp-for="ConfirmPassword" class="form-element">Repeat your password</label>
+                    <input asp-for="ConfirmPassword" class="form-element" type="password">
+                    <p class="form-caption">We want to make sure, that you don't accidentally misspell your password.</p>
+                </div>
+            </div>
+            <div class="widget--footer">
+                <button type="submit" class="button is-filled">Create account</button>
+            </div>
+        </div>
+        <p class="has-padding-4 has-font-size-caption">
+            By creating an account you agree to our <a href="#!">Terms of Service</a>
+            and to have read and understood our <a href="#!">Privacy Policy</a>.
+        </p>
+    </form>

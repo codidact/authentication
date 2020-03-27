@@ -1,49 +1,42 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
+using Codidact.Authentication.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Identity;
-
-using IdentityServer4.Events;
-using IdentityServer4.Services;
-
-using Codidact.Authentication.Domain.Entities;
-using Codidact.Authentication.WebApp.Common;
 
 namespace Codidact.Authentication.WebApp.Pages.Account
 {
-    [SecurityHeaders]
     [BindProperties]
-    public class LoginModel : PageModel
+    public class RegisterModel : PageModel
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IEventService _events;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager,
-                          UserManager<ApplicationUser> userManager,
-                          IEventService events)
+        public RegisterModel(
+                          UserManager<ApplicationUser> userManager)
         {
-            _signInManager = signInManager;
             _userManager = userManager;
-            _events = events;
         }
 
         [Required(ErrorMessage = "E-Mail Address is required")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+
+        [Required(ErrorMessage = "Display Name is required")]
+        [DataType(DataType.Text)]
+        public string DisplayName { get; set; }
+
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
-        public bool RememberLogin { get; set; } = false;
+        [Required(ErrorMessage = "Password Confirmaton is required")]
+        [DataType(DataType.Password)]
+        public string ConfirmPassword { get; set; }
 
         [Required]
         public string ReturnUrl { get; set; } = "/index";
-
         public void OnGet([FromQuery] string returnUrl)
         {
             if (returnUrl != null)
@@ -54,19 +47,27 @@ namespace Codidact.Authentication.WebApp.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!Password.Equals(ConfirmPassword, System.StringComparison.InvariantCulture))
+            {
+                ModelState.AddModelError("ConfirmPassword", "Password and Password Confirmation must match");
+            }
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(Email, Password, RememberLogin, false);
+                var result = await _userManager.CreateAsync(new ApplicationUser
+                {
+                    Email = Email,
+                    UserName = DisplayName,
+                }, Password);
                 if (result.Succeeded)
                 {
-                    var user = await _userManager.FindByEmailAsync(Email);
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.UserName));
-
                     return LocalRedirect(ReturnUrl);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid credentials.");
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(error.Code, error.Description);
+                    }
                 }
             }
 

@@ -19,3 +19,4 @@ obj/
 # can be found in '/docs/defaults'.
 /.vs/
 /.vscode/
+*.user

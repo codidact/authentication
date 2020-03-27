@@ -1,9 +1,7 @@
 using System;
-using System.Linq;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -11,7 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Codidact.Authentication.Application;
 using Codidact.Authentication.Infrastructure;
 using Codidact.Authentication.Infrastructure.Persistance;
-using Codidact.Authentication.Domain.Entities;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace Codidact.Authentication.WebApp
 {
@@ -19,11 +18,13 @@ namespace Codidact.Authentication.WebApp
     {
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _environment;
+        private readonly ILogger<Startup> _logger;
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment, ILogger<Startup> logger)
         {
             _configuration = configuration;
             _environment = environment;
+            _logger = logger;
 
             if (!environment.IsDevelopment() && !environment.IsProduction())
             {
@@ -70,30 +71,33 @@ namespace Codidact.Authentication.WebApp
                 endpoints.MapRazorPages();
             });
 
-            SeedDatabase(app);
-        }
-
-        private static void SeedDatabase(IApplicationBuilder app)
-        {
-            using (var scope = app.ApplicationServices.CreateScope())
+            if (env.EnvironmentName != "Test")
             {
-                var users = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
-                var db = scope.ServiceProvider.GetService<ApplicationDbContext>();
-
-                // Todo. Use database migrations in the future.
-                db.Database.EnsureCreated();
-
-                // Todo. Remove this when we have a registration page.
-                if (!users.Users.Any())
+                ApplyDatabaseMigrations(app, _logger);
+            }
+        }
+        /// <summary>
+        // Applies database migrations; won't cause any changes if the database is up-to-date.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="logger"></param>
+        private void ApplyDatabaseMigrations(IApplicationBuilder app, ILogger<Startup> logger)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
                 {
-                    users.CreateAsync(new ApplicationUser
+                    try
                     {
-                        UserName = "admin@codidact",
-                        Email = "admin@codidact"
-                    }, "password");
+                        context.Database.Migrate();
+                    }
+                    catch (System.Exception ex)
+                    {
+                        logger.LogError("Unable to apply database migrations. Check the connection string in your " +
+                            "appsettings file.");
+                        throw ex;
+                    }
                 }
-
-                db.SaveChanges();
             }
         }
     }
