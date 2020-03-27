@@ -1,9 +1,7 @@
 using System;
-using System.Linq;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -11,7 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Codidact.Authentication.Application;
 using Codidact.Authentication.Infrastructure;
 using Codidact.Authentication.Infrastructure.Persistance;
-using Codidact.Authentication.Domain.Entities;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace Codidact.Authentication.WebApp
 {
@@ -19,11 +18,13 @@ namespace Codidact.Authentication.WebApp
     {
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _environment;
+        private readonly ILogger<Startup> _logger;
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment, ILogger<Startup> logger)
         {
             _configuration = configuration;
             _environment = environment;
+            _logger = logger;
 
             if (!environment.IsDevelopment() && !environment.IsProduction())
             {
@@ -69,6 +70,35 @@ namespace Codidact.Authentication.WebApp
             {
                 endpoints.MapRazorPages();
             });
+
+            if (env.EnvironmentName != "Test")
+            {
+                ApplyDatabaseMigrations(app, _logger);
+            }
+        }
+        /// <summary>
+        // Applies database migrations; won't cause any changes if the database is up-to-date.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="logger"></param>
+        private void ApplyDatabaseMigrations(IApplicationBuilder app, ILogger<Startup> logger)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
+                {
+                    try
+                    {
+                        context.Database.Migrate();
+                    }
+                    catch (System.Exception ex)
+                    {
+                        logger.LogError("Unable to apply database migrations. Check the connection string in your " +
+                            "appsettings file.");
+                        throw ex;
+                    }
+                }
+            }
         }
     }
 }
