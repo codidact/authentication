@@ -2,21 +2,11 @@
 
 ## Configuration
 
-There are a few files that can be used to configure your IDE or to change the
-configuration of the authentication server.
+There are a number of files that can be edited to configure your IDE or to
+change the configuration of the authentication server.
 
-Defaults for these files are located in `/defaults` and can be used by
-copying them into the same directory but removing the prefix, for example:
-
-~~~none
-cp ./defaults/src/WebApp/appsettings.json ./src/WebApp/appsettings.json
-~~~
-
-If you want to install all files automatically, you can use:
-
-~~~none
-rsync -a ./defaults/ ./
-~~~
+Defaults for these files are located in `/defaults` and can be copied into the
+worktree by running `python ./scripts/defaults.py`.
 
 On Windows you can do this in the file explorer, just select all files in
 `/docs/defaults` and drag them into the root folder.
