@@ -18,20 +18,20 @@ namespace Codidact.Authentication.WebApp.Pages.Account
             _userManager = userManager;
         }
 
-        [Required(ErrorMessage = "E-Mail Address is Required")]
+        [Required(ErrorMessage = "E-Mail Address is required")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
 
-        [Required(ErrorMessage = "Display Name is Required")]
+        [Required(ErrorMessage = "Display Name is required")]
         [DataType(DataType.Text)]
         public string DisplayName { get; set; }
 
-        [Required(ErrorMessage = "Password is Required")]
+        [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Password Confirmaton is Required")]
+        [Required(ErrorMessage = "Password Confirmaton is required")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
@@ -49,7 +49,7 @@ namespace Codidact.Authentication.WebApp.Pages.Account
         {
             if (!Password.Equals(ConfirmPassword, System.StringComparison.InvariantCulture))
             {
-                ModelState.AddModelError("ConfirmPassword", "Password and Password Confirmation must Match");
+                ModelState.AddModelError("ConfirmPassword", "Password and Password Confirmation must match");
             }
             if (ModelState.IsValid)
             {
