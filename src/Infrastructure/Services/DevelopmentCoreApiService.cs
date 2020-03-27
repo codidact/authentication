@@ -1,13 +1,15 @@
-﻿using Codidact.Authentication.Application.Common.Interfaces;
+﻿using System.Threading.Tasks;
+
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
+
+using Codidact.Authentication.Application.Common.Interfaces;
 
 namespace Codidact.Authentication.Infrastructure.Services
 {
     public class DevelopmentCoreApiService : ICoreApiService
     {
         private readonly ILogger<DevelopmentCoreApiService> _logger;
-     
+
         public DevelopmentCoreApiService(ILogger<DevelopmentCoreApiService> logger)
         {
             _logger = logger;

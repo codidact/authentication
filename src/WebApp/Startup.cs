@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 using Codidact.Authentication.Application;
 using Codidact.Authentication.Infrastructure;
 using Codidact.Authentication.Infrastructure.Persistance;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 
 namespace Codidact.Authentication.WebApp
 {
