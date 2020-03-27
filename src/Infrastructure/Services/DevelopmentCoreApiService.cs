@@ -7,6 +7,7 @@ namespace Codidact.Authentication.Infrastructure.Services
     public class DevelopmentCoreApiService : ICoreApiService
     {
         private readonly ILogger<DevelopmentCoreApiService> _logger;
+     
         public DevelopmentCoreApiService(ILogger<DevelopmentCoreApiService> logger)
         {
             _logger = logger;
