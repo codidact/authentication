@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Codidact.Authentication.Infrastructure.Common.Interfaces
+namespace Codidact.Authentication.Application.Common.Interfaces
 {
     /// <summary>
     /// Provides access to secret configuration options like connection strings

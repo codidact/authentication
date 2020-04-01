@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 
 using Codidact.Authentication.Infrastructure.Persistance;
-using Codidact.Authentication.Infrastructure.Common.Interfaces;
+using Codidact.Authentication.Application.Common.Interfaces;
 using Codidact.Authentication.Infrastructure.Services;
 using Codidact.Authentication.Domain.Entities;
 using Codidact.Authentication.Application.Common.Interfaces;

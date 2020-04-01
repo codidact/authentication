@@ -14,11 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Domain/Domain.csproj" />
-    <ProjectReference Include="..\Application\Application.csproj" />
+    <Folder Include="Persistance\Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Persistance\Migrations\" />
+    <ProjectReference Include="../Domain/Domain.csproj" />
+    <ProjectReference Include="../Application/Application.csproj" />
   </ItemGroup>
 </Project>
