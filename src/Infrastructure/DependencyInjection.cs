@@ -58,9 +58,9 @@ namespace Codidact.Authentication.Infrastructure
                 identityServerBuilder.AddDeveloperSigningCredential();
             }
             services.AddSingleton(configuration
-            .GetSection("EmailConfiguration")
-            .Get<EmailSettings>());
-            services.AddScoped<IEmailSender<EmailSettings>, EmailSender>();
+            .GetSection("Mail")
+            .Get<MailOptions>());
+            services.AddScoped<IMailService, MailService>();
 
             services.AddAuthentication()
                 .AddIdentityCookies();

@@ -13,11 +13,11 @@ namespace Codidact.Authentication.WebApp.Pages.Account
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IEmailSender<EmailSettings> _emailService;
+        private readonly IMailService _emailService;
 
         public ForgotPasswordModel(
                           UserManager<ApplicationUser> userManager,
-                          IEmailSender<EmailSettings> emailService
+                          IMailService emailService
             )
         {
             _userManager = userManager;
@@ -38,7 +38,7 @@ namespace Codidact.Authentication.WebApp.Pages.Account
                 if (user != null)
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    await _emailService.SendResetPassword(Email, token, "http://localhost:8001/");
+                    await _emailService.SendResetPassword(user, token, "http://localhost:8001/");
                     Sent = true;
                 }
                 else

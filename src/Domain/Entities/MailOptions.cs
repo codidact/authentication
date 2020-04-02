@@ -1,6 +1,6 @@
 namespace Codidact.Authentication.Domain.Entities
 {
-    public class EmailSettings
+    public class MailOptions
     {
         public string Host { get; set; }
         public int Port { get; set; }

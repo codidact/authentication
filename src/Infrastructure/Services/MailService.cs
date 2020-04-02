@@ -7,24 +7,25 @@ using System;
 
 using Codidact.Authentication.Infrastructure.Common.Interfaces;
 using Codidact.Authentication.Domain.Entities;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Codidact.Authentication.Infrastructure.Services
 {
-    public class EmailSender : IEmailSender<EmailSettings>
+    public class MailService : IMailService
     {
-        private EmailSettings _emailConfiguration;
+        private MailOptions _emailConfiguration;
         private IServiceProvider _secretsService;
-        public EmailSender(EmailSettings emailConfiguration, IServiceProvider secretsService)
+        public MailService(MailOptions emailConfiguration, IServiceProvider secretsService)
         {
             _emailConfiguration = emailConfiguration;
             _secretsService = secretsService;
         }
-        public async Task SendEmailAsync(string email, string subject, string textMessage)
+        public async Task SendEmailAsync(ApplicationUser user, string subject, string textMessage)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(_emailConfiguration.SenderName, _emailConfiguration.Sender));
-            message.To.Add(new MailboxAddress("Username", email));
+            message.To.Add(new MailboxAddress(user.UserName, user.Email));
             message.Subject = subject;
 
             message.Body = new TextPart(TextFormat.Html)
@@ -32,6 +33,7 @@ namespace Codidact.Authentication.Infrastructure.Services
                 Text = textMessage
             };
             var secrets = _secretsService.GetService<ISecretsService>();
+
             using (var emailClient = new SmtpClient())
             {
                 emailClient.Connect(_emailConfiguration.Host, _emailConfiguration.Port, _emailConfiguration.EnableSsl);
@@ -46,9 +48,10 @@ namespace Codidact.Authentication.Infrastructure.Services
             }
 
         }
-        public async Task SendResetPassword(string email, string token, string returnUrl)
+        public async Task SendResetPassword(ApplicationUser user, string token, string returnUrl)
         {
-            await SendEmailAsync(email, "Reset your Password", $"Click here to reset your password <a href='http://localhost:8001/account/reset-password?token={HttpUtility.UrlEncode(token)}&email={email}&returnurl=${returnUrl}'>Test</a>");
+            var email = HttpUtility.UrlEncode(user.Email);
+            await SendEmailAsync(user, "Reset your Password", $"Click here to reset your password <a href='http://localhost:8001/account/reset-password?token={HttpUtility.UrlEncode(token)}&email={HttpUtility.UrlEncode(email)}&returnurl=${HttpUtility.UrlEncode(returnUrl)}'>Test</a>");
         }
     }
 }
