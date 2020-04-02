@@ -32,7 +32,6 @@ namespace Codidact.Authentication.Infrastructure.Services
                 Text = textMessage
             };
             var secrets = _secretsService.GetService<ISecretsService>();
-            //Be careful that the SmtpClient class is the one from Mailkit not the framework!
             using (var emailClient = new SmtpClient())
             {
                 emailClient.Connect(_emailConfiguration.Host, _emailConfiguration.Port, _emailConfiguration.EnableSsl);
