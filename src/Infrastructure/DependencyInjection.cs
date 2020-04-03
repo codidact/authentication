@@ -9,6 +9,7 @@ using Codidact.Authentication.Infrastructure.Persistance;
 using Codidact.Authentication.Application.Common.Interfaces;
 using Codidact.Authentication.Infrastructure.Services;
 using Codidact.Authentication.Domain.Entities;
+using Codidact.Authentication.Application.Options;
 
 namespace Codidact.Authentication.Infrastructure
 {
@@ -45,7 +46,8 @@ namespace Codidact.Authentication.Infrastructure
                     options.Password.RequireUppercase = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddSignInManager();
+                .AddSignInManager()
+                .AddDefaultTokenProviders();
 
             var identityServerBuilder = services.AddIdentityServer()
                 .AddInMemoryClients(configuration.GetSection("IdentityServer:Clients"))
@@ -59,6 +61,18 @@ namespace Codidact.Authentication.Infrastructure
 
             services.AddAuthentication()
                 .AddIdentityCookies();
+
+            services.AddSingleton(configuration.GetSection("Mail").Get<MailOptions>());
+
+
+            if (environment.IsDevelopment())
+            {
+                services.AddScoped<IMailService, DevelopmentMailService>();
+            }
+            else
+            {
+                services.AddScoped<IMailService, MailService>();
+            }
 
             return services;
         }

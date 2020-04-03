@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Codidact.Authentication.Application;
 using Codidact.Authentication.Infrastructure;
 using Codidact.Authentication.Infrastructure.Persistance;
+using Codidact.Authentication.Application.Options;
 
 namespace Codidact.Authentication.WebApp
 {
@@ -39,6 +40,8 @@ namespace Codidact.Authentication.WebApp
                 {
                     options.LowercaseUrls = true;
                 });
+
+            services.Configure<MailOptions>(_configuration.GetSection("Mail"));
 
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
