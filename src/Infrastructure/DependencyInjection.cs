@@ -58,13 +58,21 @@ namespace Codidact.Authentication.Infrastructure
             {
                 identityServerBuilder.AddDeveloperSigningCredential();
             }
-            services.AddSingleton(configuration
-            .GetSection("Mail")
-            .Get<MailOptions>());
-            services.AddScoped<IMailService, MailService>();
 
             services.AddAuthentication()
                 .AddIdentityCookies();
+
+            services.AddSingleton(configuration.GetSection("Mail").Get<MailOptions>());
+
+
+            if (environment.IsDevelopment())
+            {
+                services.AddScoped<IMailService, DevelopmentMailService>();
+            }
+            else
+            {
+                services.AddScoped<IMailService, MailService>();
+            }
 
             return services;
         }
