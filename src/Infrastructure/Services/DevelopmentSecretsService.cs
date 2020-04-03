@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.Configuration;
 
-using Codidact.Authentication.Infrastructure.Common.Interfaces;
+using Codidact.Authentication.Application.Common.Interfaces;
 
 namespace Codidact.Authentication.Infrastructure.Services
 {

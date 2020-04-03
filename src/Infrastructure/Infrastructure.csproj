@@ -13,12 +13,12 @@
         <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.1.2" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="../Domain/Domain.csproj" />
-        <ProjectReference Include="..\Application\Application.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Persistance/Migrations/" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Persistance\Migrations\" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Domain/Domain.csproj" />
+    <ProjectReference Include="../Application/Application.csproj" />
+  </ItemGroup>
 </Project>
