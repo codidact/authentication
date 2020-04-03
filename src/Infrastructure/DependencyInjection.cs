@@ -45,7 +45,8 @@ namespace Codidact.Authentication.Infrastructure
                     options.Password.RequireUppercase = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddSignInManager();
+                .AddSignInManager()
+                .AddDefaultTokenProviders();
 
             var identityServerBuilder = services.AddIdentityServer()
                 .AddInMemoryClients(configuration.GetSection("IdentityServer:Clients"))
@@ -56,6 +57,10 @@ namespace Codidact.Authentication.Infrastructure
             {
                 identityServerBuilder.AddDeveloperSigningCredential();
             }
+            services.AddSingleton(configuration
+            .GetSection("EmailConfiguration")
+            .Get<EmailSettings>());
+            services.AddScoped<IEmailSender<EmailSettings>, EmailSender>();
 
             services.AddAuthentication()
                 .AddIdentityCookies();
