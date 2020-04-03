@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Codidact.Authentication.Domain.Entities;
 
 
-namespace Codidact.Authentication.Infrastructure.Common.Interfaces
+namespace Codidact.Authentication.Application.Common.Interfaces
 {
     public interface IMailService
     {

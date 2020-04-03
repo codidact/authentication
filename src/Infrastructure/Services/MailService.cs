@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System;
 
-using Codidact.Authentication.Infrastructure.Common.Interfaces;
+using Codidact.Authentication.Application.Common.Interfaces;
 using Codidact.Authentication.Domain.Entities;
 using Codidact.Authentication.Application.Options;
 

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 using Codidact.Authentication.Domain.Entities;
-using Codidact.Authentication.Infrastructure.Common.Interfaces;
+using Codidact.Authentication.Application.Common.Interfaces;
 
 namespace Codidact.Authentication.WebApp.Pages.Account
 {
