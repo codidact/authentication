@@ -56,8 +56,10 @@ namespace Codidact.Authentication.WebApp.Pages.Account
                 var result = await _userManager.CreateAsync(new ApplicationUser
                 {
                     Email = Email,
-                    UserName = DisplayName,
+                    UserName = Email,
+                    DisplayName = DisplayName,
                 }, Password);
+
                 if (result.Succeeded)
                 {
                     return LocalRedirect(ReturnUrl);
