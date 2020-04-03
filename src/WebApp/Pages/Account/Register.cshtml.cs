@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Codidact.Authentication.Application.Common.Interfaces;
 using Codidact.Authentication.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,14 @@ namespace Codidact.Authentication.WebApp.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ICoreApiService _coreApiService;
 
         public RegisterModel(
-                          UserManager<ApplicationUser> userManager)
+                          UserManager<ApplicationUser> userManager,
+                          ICoreApiService coreApiService)
         {
             _userManager = userManager;
+            _coreApiService = coreApiService;
         }
 
         [Required(ErrorMessage = "E-Mail Address is required")]
@@ -53,24 +57,37 @@ namespace Codidact.Authentication.WebApp.Pages.Account
             }
             if (ModelState.IsValid)
             {
-                var result = await _userManager.CreateAsync(new ApplicationUser
+                var applicationUser = new ApplicationUser
                 {
                     Email = Email,
                     UserName = Email,
                     DisplayName = DisplayName,
-                }, Password);
-
-                if (result.Succeeded)
+                };
+                var userResult = await _userManager.CreateAsync(applicationUser, Password);
+                if (!userResult.Succeeded)
                 {
-                    return LocalRedirect(ReturnUrl);
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
+                    foreach (var error in userResult.Errors)
                     {
                         ModelState.AddModelError(error.Code, error.Description);
                     }
                 }
+                else
+                {
+                    var memberResult = await _coreApiService
+                        .CreateMemberAsync(ReturnUrl, DisplayName, applicationUser.Id);
+                    if (!memberResult.Success)
+                    {
+                        foreach (var error in userResult.Errors)
+                        {
+                            ModelState.AddModelError(error.Code, error.Description);
+                        }
+                    }
+                    else
+                    {
+                        return LocalRedirect(ReturnUrl);
+                    }
+                }
+
             }
 
             return Page();

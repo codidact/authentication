@@ -10,6 +10,7 @@ using Codidact.Authentication.Application.Common.Interfaces;
 using Codidact.Authentication.Infrastructure.Services;
 using Codidact.Authentication.Domain.Entities;
 using Codidact.Authentication.Application.Options;
+using Codidact.Authentication.Infrastructure.Services.CoreApi;
 
 namespace Codidact.Authentication.Infrastructure
 {
@@ -23,8 +24,9 @@ namespace Codidact.Authentication.Infrastructure
             if (environment.IsDevelopment())
             {
                 services.AddScoped<ISecretsService, DevelopmentSecretsService>();
-                services.AddScoped<ICoreApiService, DevelopmentCoreApiService>();
             }
+
+            services.AddScoped<ICoreApiService, CoreApiService>();
 
             services
                 .AddDbContext<ApplicationDbContext>((provider, options) =>

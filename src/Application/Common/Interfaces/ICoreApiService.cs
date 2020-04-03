@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Codidact.Authentication.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,6 @@ namespace Codidact.Authentication.Application.Common.Interfaces
     /// </summary>
     public interface ICoreApiService
     {
-        Task<bool> CreateMember(string displayName, long userId);
+        Task<EntityResult> CreateMemberAsync(string url, string displayName, long userId);
     }
 }

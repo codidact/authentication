@@ -3,6 +3,7 @@
 using Microsoft.Extensions.Logging;
 
 using Codidact.Authentication.Application.Common.Interfaces;
+using Codidact.Authentication.Domain.Common;
 
 namespace Codidact.Authentication.Infrastructure.Services
 {
@@ -15,7 +16,7 @@ namespace Codidact.Authentication.Infrastructure.Services
             _logger = logger;
         }
 
-        public Task<bool> CreateMember(string displayName, long userId)
+        public Task<EntityResult> CreateMemberAsync(string url, string displayName, long userId)
         {
             _logger.LogInformation("Create Member for the user id");
 
@@ -23,7 +24,7 @@ namespace Codidact.Authentication.Infrastructure.Services
 
             _logger.LogInformation("Member Created.");
 
-            return Task.FromResult(true);
+            return Task.FromResult(new EntityResult(true));
         }
     }
 }
