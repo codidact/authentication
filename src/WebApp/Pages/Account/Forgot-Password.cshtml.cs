@@ -25,6 +25,14 @@ namespace Codidact.Authentication.WebApp.Pages.Account
         }
         [Required]
         public string ReturnUrl { get; set; } = "/index";
+        public void OnGet([FromQuery] string returnUrl)
+        {
+            if (returnUrl != null)
+            {
+                ReturnUrl = returnUrl;
+            }
+        }
+
 
         [Required(ErrorMessage = "E-Mail Address is required")]
         [DataType(DataType.EmailAddress)]

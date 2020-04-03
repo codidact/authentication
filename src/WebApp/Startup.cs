@@ -45,11 +45,6 @@ namespace Codidact.Authentication.WebApp
 
             services.Configure<MailOptions>(_configuration.GetSection("Mail"));
 
-            services.Configure<MailOptions>(options =>
-            {
-                options.Sender = "Codidact";
-            });
-
             services.AddTransient<IMailService, MailService>();
 
             services.AddRazorPages()
