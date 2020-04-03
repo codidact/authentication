@@ -23,12 +23,15 @@ namespace Codidact.Authentication.WebApp.Pages.Account
             _userManager = userManager;
             _emailService = emailService;
         }
+        [Required]
+        public string ReturnUrl { get; set; } = "/index";
 
         [Required(ErrorMessage = "E-Mail Address is required")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         public bool Sent { get; set; }
+
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -38,7 +41,7 @@ namespace Codidact.Authentication.WebApp.Pages.Account
                 if (user != null)
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    await _emailService.SendResetPassword(user, token, "http://localhost:8001/");
+                    await _emailService.SendResetPassword(user, token, ReturnUrl);
                     Sent = true;
                 }
                 else

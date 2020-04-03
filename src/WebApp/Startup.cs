@@ -13,7 +13,7 @@ using Codidact.Authentication.Infrastructure;
 using Codidact.Authentication.Infrastructure.Common.Interfaces;
 using Codidact.Authentication.Infrastructure.Persistance;
 using Codidact.Authentication.Infrastructure.Services;
-using Codidact.Authentication.Domain.Entities;
+using Codidact.Authentication.Application.Options;
 
 namespace Codidact.Authentication.WebApp
 {

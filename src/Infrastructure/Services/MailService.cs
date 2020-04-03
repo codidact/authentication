@@ -7,6 +7,7 @@ using System;
 
 using Codidact.Authentication.Infrastructure.Common.Interfaces;
 using Codidact.Authentication.Domain.Entities;
+using Codidact.Authentication.Application.Options;
 
 using Microsoft.Extensions.DependencyInjection;
 

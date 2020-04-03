@@ -1,4 +1,4 @@
-namespace Codidact.Authentication.Domain.Entities
+namespace Codidact.Authentication.Application.Options
 {
     public class MailOptions
     {
