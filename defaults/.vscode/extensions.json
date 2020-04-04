@@ -2,5 +2,6 @@
     "recommendations": [
         "editorconfig.editorconfig",
         "ms-dotnettools.csharp",
+        "ms-python.python",
     ]
 }
