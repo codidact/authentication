@@ -13,6 +13,9 @@ import sys
 import os
 import shutil
 
+if sys.version_info < (3, 7, 3):
+    sys.exit("error: This script requires Python 3.7.3 or later.")
+
 
 def show_usage():
     print("""\
@@ -51,5 +54,16 @@ for arg in sys.argv[1:]:
 worktree_directory = os.path.dirname(os.path.dirname(__file__))
 defaults_directory = os.path.join(worktree_directory, "defaults")
 
-shutil.copytree(defaults_directory, worktree_directory,
-                dirs_exist_ok=True, symlinks=True)
+# Workaround for 'shutil.copytree' until Python 3.8 becomes availiabe on most
+# systems. Debian Stable is taken as an indicator for this:
+# https://packages.debian.org/buster/python3
+for srcdir, dirnames, filenames in os.walk(defaults_directory):
+    dstdir = os.path.join(worktree_directory,
+                          os.path.relpath(srcdir, defaults_directory))
+
+    os.makedirs(dstdir, exist_ok=True)
+
+    for filename in filenames:
+        shutil.copy2(os.path.join(srcdir, filename),
+                     os.path.join(dstdir, filename),
+                     follow_symlinks=False)
