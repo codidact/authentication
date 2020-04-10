@@ -5,22 +5,21 @@
         <AssemblyName>Codidact.Authentication.Infrastructure</AssemblyName>
     </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.5.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
-    <PackageReference Include="MimeKit" Version="2.5.2" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.2" />
-    <PackageReference Include="IdentityServer4" Version="3.1.2" />
-    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.1.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MailKit" Version="2.5.2" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
+        <PackageReference Include="MimeKit" Version="2.5.2" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.2" />
+        
+        <PackageReference Include="IdentityServer4" Version="3.1.2" />
+        <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.1.2" />
 
-  <ItemGroup>
-    <Folder Include="Persistance/Migrations/" />
-  </ItemGroup>
+        <PackageReference Include="Amazon.Extensions.Configuration.SystemsManager" Version="1.2.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="../Domain/Domain.csproj" />
-    <ProjectReference Include="../Application/Application.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="../Domain/Domain.csproj" />
+        <ProjectReference Include="../Application/Application.csproj" />
+    </ItemGroup>
 </Project>

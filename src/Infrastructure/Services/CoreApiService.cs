@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Codidact.Authentication.Infrastructure.Services.CoreApi
+namespace Codidact.Authentication.Infrastructure.Services
 {
     public class CoreApiService : ICoreApiService
     {

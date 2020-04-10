@@ -1,16 +1,15 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Hosting;
 
-using Codidact.Authentication.Infrastructure.Persistance;
-using Codidact.Authentication.Application.Common.Interfaces;
-using Codidact.Authentication.Infrastructure.Services;
 using Codidact.Authentication.Domain.Entities;
 using Codidact.Authentication.Application.Options;
-using Codidact.Authentication.Infrastructure.Services.CoreApi;
+using Codidact.Authentication.Application.Common.Interfaces;
+using Codidact.Authentication.Infrastructure.Persistance;
+using Codidact.Authentication.Infrastructure.Services;
 
 namespace Codidact.Authentication.Infrastructure
 {
@@ -21,20 +20,14 @@ namespace Codidact.Authentication.Infrastructure
             IConfiguration configuration,
             IWebHostEnvironment environment)
         {
-            if (environment.IsDevelopment())
-            {
-                services.AddScoped<ISecretsService, DevelopmentSecretsService>();
-            }
-
             services.AddScoped<ICoreApiService, CoreApiService>();
 
             services
                 .AddDbContext<ApplicationDbContext>((provider, options) =>
                 {
-                    var secrets = provider.GetService<ISecretsService>();
-                    var connectionString = secrets.Get("ConnectionStrings:Authentication").GetAwaiter().GetResult();
-                    options.UseNpgsql(connectionString,
-                       b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
+                    options.UseNpgsql(
+                        configuration.GetConnectionString("DefaultConnection"),
+                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
                 });
 
             services
@@ -64,8 +57,7 @@ namespace Codidact.Authentication.Infrastructure
             services.AddAuthentication()
                 .AddIdentityCookies();
 
-            services.AddSingleton(configuration.GetSection("Mail").Get<MailOptions>());
-
+            services.Configure<MailOptions>(configuration.GetSection("MailServer"));
 
             if (environment.IsDevelopment())
             {
