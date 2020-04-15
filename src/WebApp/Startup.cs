@@ -12,6 +12,8 @@ using Codidact.Authentication.Application;
 using Codidact.Authentication.Infrastructure;
 using Codidact.Authentication.Infrastructure.Persistance;
 using Codidact.Authentication.Application.Options;
+using Microsoft.AspNetCore.Rewrite;
+using Codidact.Authentication.WebApp.Rules;
 
 namespace Codidact.Authentication.WebApp
 {
@@ -65,6 +67,7 @@ namespace Codidact.Authentication.WebApp
 
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseRewriter(new RewriteOptions().Add(new RedirectLowerCaseRule()));
 
             app.UseIdentityServer();
             app.UseAuthorization();
@@ -79,6 +82,7 @@ namespace Codidact.Authentication.WebApp
                 ApplyDatabaseMigrations(app, _logger);
             }
         }
+
         /// <summary>
         // Applies database migrations; won't cause any changes if the database is up-to-date.
         /// </summary>
