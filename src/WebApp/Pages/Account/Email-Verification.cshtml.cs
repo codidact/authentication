@@ -60,7 +60,7 @@ namespace Codidact.Authentication.WebApp.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(HttpUtility.UrlDecode(Email));
+                var user = await _userManager.FindByEmailAsync(Email);
                 if (user == null)
                 {
                     ModelState.AddModelError("Email", "Email not found");
