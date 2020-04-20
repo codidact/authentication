@@ -21,8 +21,8 @@ for (let i = 0; i < headerSlideTriggers.length; i++) {
         // Position header slide appropriately relative to
         // trigger.
         const rect = this.getBoundingClientRect();
-        hs.style.top = rect.top + rect.height + "px";
-        hs.style.right = document.body.clientWidth - rect.right + "px";
+        headerSlide.style.top = rect.top + rect.height + "px";
+        headerSlide.style.right = document.body.clientWidth - rect.right + "px";
 
         // Prevent navigation
         e.preventDefault();
@@ -39,13 +39,13 @@ $(".js-email-verify").addEventListener("click", () => {
     // temproray, will remove when co-design implements it
     $(".js-email-verify").style.opacity = 0.7;
     fetch("/account/email-verification?handler=emailVerify", {
-        method: "POST",
-        headers: new Headers({
-            RequestVerificationToken: $(
-                'input[name="__RequestVerificationToken"]'
-            ).value,
-        }),
-    })
+            method: "POST",
+            headers: new Headers({
+                RequestVerificationToken: $(
+                    'input[name="__RequestVerificationToken"]'
+                ).value,
+            }),
+        })
         .then((obj) => obj.text())
         .then((response) => {
             $(".js-email-verify").removeAttribute("disabled");
