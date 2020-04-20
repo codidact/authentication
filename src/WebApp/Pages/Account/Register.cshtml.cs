@@ -1,9 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Codidact.Authentication.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+
+using IdentityServer4.Events;
+using IdentityServer4.Services;
+
+using Codidact.Authentication.Domain.Entities;
+using Codidact.Authentication.Application.Common.Interfaces;
 
 namespace Codidact.Authentication.WebApp.Pages.Account
 {
@@ -11,11 +16,18 @@ namespace Codidact.Authentication.WebApp.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public RegisterModel(
-                          UserManager<ApplicationUser> userManager)
+        private readonly IMailService _emailService;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEventService _events;
+        public RegisterModel(SignInManager<ApplicationUser> signInManager,
+                          UserManager<ApplicationUser> userManager,
+                          IMailService emailService,
+                          IEventService events)
         {
             _userManager = userManager;
+            _emailService = emailService;
+            _signInManager = signInManager;
+            _events = events;
         }
 
         [Required(ErrorMessage = "E-Mail Address is required")]
@@ -37,6 +49,7 @@ namespace Codidact.Authentication.WebApp.Pages.Account
 
         [Required]
         public string ReturnUrl { get; set; } = "/index";
+        public bool VerificationSent { get; set; }
         public void OnGet([FromQuery] string returnUrl)
         {
             if (returnUrl != null)
@@ -53,15 +66,21 @@ namespace Codidact.Authentication.WebApp.Pages.Account
             }
             if (ModelState.IsValid)
             {
-                var result = await _userManager.CreateAsync(new ApplicationUser
+                var user = new ApplicationUser
                 {
                     Email = Email,
                     UserName = Email,
                     DisplayName = DisplayName,
-                }, Password);
+                };
+                var result = await _userManager.CreateAsync(user, Password);
 
                 if (result.Succeeded)
                 {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    await _signInManager.PasswordSignInAsync(Email, Password, false, false);
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.UserName));
+                    await _emailService.SendVerificationEmail(user, token, ReturnUrl);
+                    VerificationSent = true;
                     return LocalRedirect(ReturnUrl);
                 }
                 else

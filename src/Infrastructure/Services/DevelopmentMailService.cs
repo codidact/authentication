@@ -17,14 +17,14 @@ namespace Codidact.Authentication.Infrastructure.Services
             _logger = logger;
         }
 
-        public Task SendEmailAsync(ApplicationUser user, string subject, string textMessage)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task SendResetPassword(ApplicationUser user, string token, string returnUrl)
         {
-            _logger.LogInformation($"Sending password reset email to {user.Email} with the return rul {returnUrl}.");
+            _logger.LogInformation($"Sending password reset email to {user.Email} with the return url {returnUrl}.");
+            return Task.CompletedTask;
+        }
+        public Task SendVerificationEmail(ApplicationUser user, string token, string returnUrl)
+        {
+            _logger.LogInformation($"Sending email verfication email to {user.Email} with the return url {returnUrl}.");
             return Task.CompletedTask;
         }
     }

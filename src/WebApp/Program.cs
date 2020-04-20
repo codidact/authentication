@@ -14,12 +14,12 @@ namespace Codidact.Authentication.WebApp
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging(builder =>
-                {
-                    builder.ClearProviders();
-                    builder.AddConsole();
-                })
-                .UseStartup<Startup>();
+                   .ConfigureLogging(builder =>
+            {
+                builder.ClearProviders();
+                builder.AddConsole();
+            })
+            .UseStartup<Startup>();
         }
     }
 }

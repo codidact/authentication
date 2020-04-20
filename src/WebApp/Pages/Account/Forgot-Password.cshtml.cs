@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
 using Codidact.Authentication.Domain.Entities;
 using Codidact.Authentication.Application.Common.Interfaces;
 
@@ -14,11 +13,9 @@ namespace Codidact.Authentication.WebApp.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMailService _emailService;
-
         public ForgotPasswordModel(
-                          UserManager<ApplicationUser> userManager,
-                          IMailService emailService
-            )
+            UserManager<ApplicationUser> userManager,
+            IMailService emailService)
         {
             _userManager = userManager;
             _emailService = emailService;

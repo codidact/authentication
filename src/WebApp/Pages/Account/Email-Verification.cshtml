@@ -1,0 +1,19 @@
+@page
+@model EmailVerificationModel
+
+<div class="widget">
+
+    <partial name="_ValidationSummary" />
+
+    <div class="widget--body">
+
+        @if (Model.Verified == false) {
+            <p>Your email could not be verified, please try again.</p>
+        }
+        else 
+        {
+            <p>Your email is verified.</p>
+        }
+
+    </div>
+</div>

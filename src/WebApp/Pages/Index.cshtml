@@ -1,10 +1,20 @@
 @page
+@model IndexModel
+@Html.AntiForgeryToken()
 
 <h2>This is The Index! I am Cephalon Sark, your unbiased host!</h2>
 
 @if (User?.Identity.IsAuthenticated ?? false)
 {
     <p>You are logged in as <b>@User.Identity.Name</b>, would you like to <a asp-page="/account/logout">logout</a>?</p>
+
+    @if (Model.EmailVerified == false) 
+    {
+        <p class="js-email-verification-status">Verification email sent! If you haven't got it, click the button below</p>
+        <button type="button" class="button is-filled js-email-verify">Confirm email</button>
+    } else {
+        <p class="js-email-verification-status">Email is verified</p>
+    }
 }
 else
 {
