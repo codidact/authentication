@@ -8,6 +8,7 @@ a different database that is completely seperated from everything that Core does
 This information can then be retrieved by the core application on demand.
 
 Instructions for setting up a development environment can be found in
-[docs/development.md][1].
+[docs/development.md][2].
 
-  [1]: docs/development.md
+  [1]: https://github.com/codidact/core
+  [2]: docs/development.md
